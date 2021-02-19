@@ -1,6 +1,5 @@
 # Prerequisites
 *.d
-Cargo.lock
 
 # Compiled Object files
 *.slo
