@@ -4,13 +4,6 @@
 use core::panic::PanicInfo;
 use metal_os::{QemuExitCode, exit_qemu, serial_println, serial_print};
 
-#[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    serial_println!("[ok]");
-    exit_qemu(QemuExitCode::Success);
-    loop {}
-}
-
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     should_fail();
@@ -22,4 +15,11 @@ pub extern "C" fn _start() -> ! {
 fn should_fail() {
     serial_print!("should_panic::should_fail...\t");
     assert_eq!(0, 1);
+}
+
+#[panic_handler]
+fn panic(_info: &PanicInfo) -> ! {
+    serial_println!("[ok]");
+    exit_qemu(QemuExitCode::Success);
+    loop {}
 }
